@@ -1,0 +1,17 @@
+@(b: Blog,
+  intro: String,
+  posts: PostSet)
+  
+@results(b.blogName) {
+        
+    @Html(intro)
+    
+    @for(p <- posts.posts()) {
+        @Html(p)
+    }
+
+    <div id="more-content">
+        <a href="@{ routes.Application.getMore(b.blogName, posts.nextOffset()) }">next page</a>
+    </div>
+        
+}

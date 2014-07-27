@@ -1,0 +1,47 @@
+@(title: String)(content: Html)
+  
+@import helper._;
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title | Stalkr</title>
+        <meta name="description" content="Stalkr presents the blog of @title.">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/style.css")'>
+        <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("images/favicon.ico")'>
+    </head>
+    
+    <body>
+    
+        <div id="container">
+        
+        @content
+        
+        <div id="footer">
+            
+            <div id="bottom-logo">
+                <a href="/"><img src="@routes.Assets.at("images/stalkr-logo-small.png")" /></a>
+            </div>
+            
+            <table id="info">
+                <tr>
+                    <td id="links"><a href="/about">about</a></td>
+                    <td id="links"><a href="mailto:contact@@stalkr.me">email</a></td>
+                    <td id="links"><a href="http://chezyuki.tumblr.com/ask">tumblr ask</a></td>
+                    <td id="links">
+                        @helper.form(action = routes.Application.submit(), 'id -> "blogForm") {
+                            <input type="text" id="blog-form" name="blogName" value="" placeholder="search for a new blog" style="width: 150px;" required>
+                            <input type="submit" class="btn primary" value="  》">
+                        }
+                    </td>
+                </tr>
+            </table>
+            
+        </div>
+        
+        </div>
+        
+    </body>
+</html>

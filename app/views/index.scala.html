@@ -1,0 +1,60 @@
+@(blogForm: Form[Blog],
+  msg: String)
+
+@import helper._
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Stalkr</title>
+        <meta name="description" content="Get the original posts written by any tumblr user, without having to scroll through reblogged stuff.">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/main.css")'>
+        <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("images/favicon.ico")'>
+        <link href='http://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+    
+    <div id="main">
+        <div id="container">
+    
+            <div id="logo"><a href="/"><img src="@routes.Assets.at("images/stalkr-logo-med.png")"></a></div>
+        
+            <h2>Fetch me the life of</h2>
+
+            @helper.form(action = routes.Application.submit(), 'id -> "blogForm") {
+    
+            <div class="shadow" id="input_box">
+                <input type="text" id="blog-form" name="blogName" value="" placeholder="blog" style="width: 210px;" required autofocus="autofocus" />
+                <label for="blog-form" style="font-family: sans-serif; font-size: 20px;">.tumblr.com</label>
+            </div>
+    
+            <input type="submit" class="btn primary" value="  》">
+            }
+            
+            <p style="color: red; padding-top: 10px">
+                @if(msg.isEmpty()) {
+                    <br />
+                } else {
+                    @msg
+                }
+            </p>
+        
+            <div id="intro">
+                O·P <span style="color: #9b9b9b; font-size: 10pt; margin-left: 10px;">noun</span>
+                <span style="color: #9b9b9b; font-size: 10pt; margin-left: 5px;">\ō-ˈpē\</span>
+                <p>Short for original poster, the creator of a social network post</p>
+                <br />
+                <p>There's an OP in all of us. Get the original posts written by any tumblr user, without having to scroll through reblogged stuff.</p>
+                <br />
+                <p align="center"><small><a href="@routes.Application.about()">about</a>
+                + <a href="mailto:contact@@stalkr.me">feedback</a>
+                + <a href="http://www.tumblr.com">powered by Tumblr ♥</a></small></p>
+            </div>
+        
+        </div>
+    </div>
+    
+    </body>
+</html>

@@ -1,0 +1,18 @@
+@(name: String,
+  intro: String,
+  posts: PostSet)
+
+@results(name) {
+        
+    @Html(intro)
+        
+    @for(p <- posts.posts()) {
+        @Html(p)
+    }
+
+    <div id="more-content">
+        <a href="@{ routes.Application.getLess(name, posts.currOffset()) }">previous page</a> | 
+        <a href="@{ routes.Application.getMore(name, posts.nextOffset()) }">next page</a>
+    </div>
+        
+}
