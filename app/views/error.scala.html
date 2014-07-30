@@ -1,7 +1,22 @@
 @(error: String)
 
-@results("Error"){
-        
-    <h2>@error</h2>
+<!DOCTYPE html>
 
-}
+<html>
+    <head>
+        <title>Not found | Stalkr</title>
+        <meta name="description" content="Not found. Something is wrong.">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/main.css")'>
+        <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("images/favicon.ico")'>
+        <link href='http://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="container">
+            <a href="/"><img src='@routes.Assets.at("images/magnifyingglass.png")' /></a>
+            <h1 style="font-size: 64pt;">Not found</h1>
+            <p>@error</p>
+            <a href="/" ><p style="margin-top: 40px;">《 Home</p></a>
+        </div>
+    </body>
+</html>
