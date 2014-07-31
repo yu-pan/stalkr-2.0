@@ -25,20 +25,38 @@ public class Application extends Controller {
         return ok(index.render(blogForm, ""));
     }
     
-    // Renders initial result page
+    // Handles form submission, redirects to searchResult() or notFoundError()
     public static Result submit() {
         Form<Blog> filledForm = blogForm.bindFromRequest();
         Blog created = filledForm.get();
-        System.out.println(created.blogName + " started stalkr");
         try {
             String intro = Stalkr.getInfo(created.blogName);
-            PostSet ps = Stalkr.getBlog(created.blogName, 0);
+            return redirect(routes.Application.searchResult(created.blogName));
+        } catch (JumblrException e) {
+            return badRequest(index.render(blogForm, created.blogName + ".tumblr.com doesn't exist."));
+        } catch (Exception e2) {
+            return redirect(routes.Application.notFoundError());
+        }
+    }
+
+    // Renders search result of BLOGNAME
+    public static Result searchResult(String blogName) {
+        try {
+            Blog created = new Blog();
+            created.blogName = blogName;
+            String intro = Stalkr.getInfo(blogName);
+            PostSet ps = Stalkr.getBlog(blogName, 0);
             return ok(submit.render(created, intro, ps));
         } catch (JumblrException e) {
-            return ok(index.render(blogForm, created.blogName + ".tumblr.com doesn't exist."));
+            return ok(index.render(blogForm, "Something went wrong."));
         } catch (Exception e2) {
             return ok(error.render("Something is wrong. Let me know what happened."));
         }
+    }
+    
+    // Renders error page
+    public static Result notFoundError() {
+        return ok(error.render("Something is wrong. Let me know what happened."));
     }
     
     // Renders in-between result pages
