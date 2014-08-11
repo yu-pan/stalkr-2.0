@@ -15,8 +15,6 @@ public class PostSet {
         posts = p;
         currOffset = ci;
         nextOffset = ni;
-        System.out.println("curr offset: " + currOffset);
-        System.out.println("next offset: " + nextOffset);
     }
     
    /*  

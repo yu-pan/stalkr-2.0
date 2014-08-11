@@ -61,7 +61,6 @@ public class Application extends Controller {
     
     // Renders in-between result pages
     public static Result getMore(String name, int currOffset) {
-        System.out.println(name);
         String i = Stalkr.getInfo(name);
         PostSet p = Stalkr.getBlog(name, currOffset);
         if (p.posts().size() < 10) {
@@ -73,7 +72,6 @@ public class Application extends Controller {
     
     // Renders result pages when searching in reverse
     public static Result getLess(String name, int currOffset) {
-        System.out.println(name + " going backwards");
         String i = Stalkr.getInfo(name);
         PostSet p = Stalkr.getBlogBack(name, currOffset);
         if (p.currOffset() == 0) {
