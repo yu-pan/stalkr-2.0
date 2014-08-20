@@ -59,7 +59,7 @@ a:hover {
     width: 700px;
     background-color: #FFFFFF;
     padding: 30px;
-    border-radius: 0 0 15px 15px;
+    border-radius: 0 0 10px 10px;
 }
 
 .post {
@@ -68,7 +68,7 @@ a:hover {
     padding: 30px;
     margin-top: 25px;
     margin-bottom: 25px;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 .post img {
@@ -237,7 +237,7 @@ blockquote {
     background-color: #FFFFFF;
     margin: auto;
     padding: 20px 30px 20px 30px;
-    border-radius: 15px 15px 0 0;
+    border-radius: 10px 10px 0 0;
 }
 
 #bottom-logo {
@@ -263,11 +263,11 @@ blockquote {
 }
 
 input[type=text] {
-	font-family: Geneva, Tahoma, Verdana, sans-serif;
-	font-size: 10pt;
-	border: 1px solid #59b4c7;
-	padding-left: 4px;
-	padding-right: 4px;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+    font-size: 10pt;
+    border: 1px solid #59b4c7;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 input[type=submit] {
@@ -278,4 +278,9 @@ input[type=submit] {
     padding: 2px;
     border-radius: 6px;
     background-color: #59b4c7;
+}
+
+#inifiniteLoader {
+    color: #3a87a5;
+    display: none;
 }

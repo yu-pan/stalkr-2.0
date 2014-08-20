@@ -1,5 +1,3 @@
-/* Application.java */
-
 package controllers;
 
 import play.*;
@@ -11,21 +9,20 @@ import utils.stalkr.Stalkr;
 import utils.stalkr.HTMLTags;
 import com.tumblr.jumblr.exceptions.JumblrException;
 import java.util.List;
+import play.libs.Json;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import views.html.*;
 
-/*
- * Controller module
- */
 public class Application extends Controller {
     
     final static Form<Blog> blogForm = Form.form(Blog.class);
     
-    // Renders homepage
     public static Result index() {
         return ok(index.render(blogForm, ""));
     }
     
-    // Handles form submission, redirects to searchResult() or notFoundError()
     public static Result submit() {
         Form<Blog> filledForm = blogForm.bindFromRequest();
         Blog created = filledForm.get();
@@ -38,8 +35,7 @@ public class Application extends Controller {
             return redirect(routes.Application.notFoundError());
         }
     }
-
-    // Renders search result of BLOGNAME
+    
     public static Result searchResult(String blogName) {
         try {
             Blog created = new Blog();
@@ -54,34 +50,33 @@ public class Application extends Controller {
         }
     }
     
-    // Renders error page
     public static Result notFoundError() {
-        return ok(error.render("Something is wrong. Let me know what happened."));
+        System.out.println(3);
+        return badRequest(error.render("Something is wrong. Let me know what happened."));
     }
-    
-    // Renders in-between result pages
-    public static Result getMore(String name, int currOffset) {
+
+    // Handles loading posts for infinite scroll
+    public static Result loadPosts(String name, int currOffset) {
+        System.out.println(name);
         String i = Stalkr.getInfo(name);
         PostSet p = Stalkr.getBlog(name, currOffset);
+
+        ObjectNode postJson = Json.newObject();
+        postJson.put("blog", name);
+        postJson.put("currOffset", currOffset);
+        postJson.put("nextOffset", p.nextOffset());
+        JsonNode postList = Json.toJson(p.posts());
+        postJson.put("posts", postList);
+
         if (p.posts().size() < 10) {
-            return ok(end.render(name, i, p));
+            postJson.put("end", true);
         } else {
-            return ok(more.render(name, i, p));
+            postJson.put("end", false);
         }
+
+        return ok(postJson);
     }
     
-    // Renders result pages when searching in reverse
-    public static Result getLess(String name, int currOffset) {
-        String i = Stalkr.getInfo(name);
-        PostSet p = Stalkr.getBlogBack(name, currOffset);
-        if (p.currOffset() == 0) {
-            return ok(frontend.render(name, i, p));
-        } else {
-            return ok(more.render(name, i, p));
-        }
-    }
-    
-    // Renders About page
     public static Result about() {
         return ok(about.render());
     }

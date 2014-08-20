@@ -6,9 +6,8 @@ GET     /                           controllers.Application.index()
 POST    /                           controllers.Application.submit()
 GET     /about                      controllers.Application.about()
 GET     /error                      controllers.Application.notFoundError()
-GET     /result/:name/next/:offset         controllers.Application.getMore(name: String, offset: Int)
-GET     /result/:name/previous/:offset     controllers.Application.getLess(name: String, offset: Int)
 GET     /result/:name                      controllers.Application.searchResult(name: String)
+GET     /loadmore/:name/:offset			   controllers.Application.loadPosts(name: String, offset: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

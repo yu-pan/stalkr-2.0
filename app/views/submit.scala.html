@@ -10,8 +10,46 @@
         @Html(p)
     }
 
-    <div id="more-content">
-        <a href="@{ routes.Application.getMore(b.blogName, posts.nextOffset()) }">next page</a>
-    </div>
+<script type="text/javascript">
+    var count = @posts.nextOffset();
+    var name = "@b.blogName";
+    var hitEnd = false;
+    function loadRequest() {
+        if (!hitEnd) {
+            loadPosts(count);
+        }
+    } 
+
+    function loadPosts(offset) {
+        $("#scroll-message").css('display', 'none');
+        $('a#inifiniteLoader').show('fast');
+        $.ajax({
+            url: "/loadmore/" + name + "/" + offset,
+            dataType: 'json',
+            success: function(json_data) {
+                $('a#inifiniteLoader').hide('1000');
+                count = json_data.nextOffset;
+
+                for (var i = 0; i < json_data.posts.length; i++) {
+                    $("#content").append(json_data.posts[i]);
+                }
+
+                if (json_data.end) {
+                    hitEnd = true;
+                    $("#scroll-message").css('display', 'none');
+                    $('a#inifiniteLoader').css('display', 'none');
+                    $("#more-content").append("No more posts.");
+                } else {
+                    $("#scroll-message").css('display', 'block');
+                }
+            }, error: function() {
+                hitEnd = true;
+                $('a#inifiniteLoader').css('display', 'none');
+                $("#more-content").append("Something went wrong.");
+            }
+        });
+    return false;
+    }
+</script>
         
 }

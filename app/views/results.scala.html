@@ -11,13 +11,21 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/style.css")'>
         <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("images/favicon.ico")'>
+        <link rel="stylesheet" href="@routes.Assets.at("font-awesome-4.1.0/css/font-awesome.min.css")">
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     </head>
     
     <body>
     
         <div id="container">
-        
-        @content
+            <div id="content">
+                @content
+            </div>
+
+            <div id="more-content">
+                <a id="scroll-message" href="#" onclick="loadRequest();return false;"><i class="fa fa-chevron-circle-down"></i> more</a>
+                <a id="inifiniteLoader"><i class="fa fa-refresh fa-spin"></i></a>
+            </div>
         
         <div id="footer">
             
