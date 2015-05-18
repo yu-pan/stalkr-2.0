@@ -10,6 +10,7 @@
         <title>Stalkr</title>
         <meta name="description" content="Get the original posts written by any tumblr user, without having to scroll through reblogged stuff.">
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/main.css")'>
         <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("images/favicon.ico")'>
         <link href='http://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
@@ -19,14 +20,16 @@
     <div id="main">
         <div id="container">
     
-            <div id="logo"><a href="/"><img src="@routes.Assets.at("images/stalkr-logo-med.png")"></a></div>
+            <div id="logo"><a href="/"><img id="logo-link" src="@routes.Assets.at("images/stalkr-logo-med.png")"></a></div>
+
         
             <h2>Fetch me the life of</h2>
 
             @helper.form(action = routes.Application.submit(), 'id -> "blogForm") {
     
             <div class="shadow" id="input_box">
-                <input type="text" id="blog-form" name="blogName" value="" placeholder="blog" style="width: 210px;" required autofocus="autofocus" />
+                <input type="text" id="blog-form" name="blogName" value="" placeholder="blog" required autofocus="autofocus" />
+
                 <label for="blog-form" style="font-family: sans-serif; font-size: 20px;">.tumblr.com</label>
             </div>
     
